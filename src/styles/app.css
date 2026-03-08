@@ -43,3 +43,9 @@ html, body, #root {
   font-display: swap;
   src: local('DM Mono');
 }
+
+/* ─── Field Animations ───────────────────────────────────────── */
+
+@keyframes drawPath {
+  to { stroke-dashoffset: 0; }
+}
