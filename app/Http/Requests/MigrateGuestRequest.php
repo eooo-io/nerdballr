@@ -18,7 +18,7 @@ class MigrateGuestRequest extends FormRequest
             'bookmarks.*' => ['string', 'max:255'],
             'completed' => ['sometimes', 'array', 'max:100'],
             'completed.*' => ['string', 'max:255'],
-            'session_key' => ['sometimes', 'string', 'size:64'],
+            'session_key' => ['sometimes', 'string', 'max:128'],
         ];
     }
 }

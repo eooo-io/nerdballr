@@ -33,7 +33,7 @@ it('lists user bookmarks with concept data', function () {
         ->assertJsonCount(3, 'data')
         ->assertJsonStructure([
             'data' => [
-                '*' => ['id', 'concept', 'created_at'],
+                '*' => ['id', 'concept', 'concept_slug', 'created_at'],
             ],
         ]);
 });
@@ -43,7 +43,7 @@ it('creates a bookmark', function () {
     $concept = Concept::factory()->create();
 
     $response = $this->actingAs($user)->postJson('/api/user/bookmarks', [
-        'concept_id' => $concept->id,
+        'concept_slug' => $concept->slug,
     ]);
 
     $response->assertCreated()
@@ -60,11 +60,11 @@ it('returns existing bookmark on duplicate creation', function () {
     $concept = Concept::factory()->create();
 
     $first = $this->actingAs($user)->postJson('/api/user/bookmarks', [
-        'concept_id' => $concept->id,
+        'concept_slug' => $concept->slug,
     ]);
 
     $second = $this->actingAs($user)->postJson('/api/user/bookmarks', [
-        'concept_id' => $concept->id,
+        'concept_slug' => $concept->slug,
     ]);
 
     $first->assertCreated();
@@ -75,24 +75,24 @@ it('returns existing bookmark on duplicate creation', function () {
     $first->assertJsonPath('data.id', $second->json('data.id'));
 });
 
-it('validates concept_id is required', function () {
+it('validates concept_slug is required', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->postJson('/api/user/bookmarks', []);
 
     $response->assertUnprocessable()
-        ->assertJsonValidationErrors(['concept_id']);
+        ->assertJsonValidationErrors(['concept_slug']);
 });
 
-it('validates concept_id must exist', function () {
+it('validates concept_slug must exist', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->postJson('/api/user/bookmarks', [
-        'concept_id' => '00000000-0000-0000-0000-000000000000',
+        'concept_slug' => 'nonexistent-slug',
     ]);
 
     $response->assertUnprocessable()
-        ->assertJsonValidationErrors(['concept_id']);
+        ->assertJsonValidationErrors(['concept_slug']);
 });
 
 it('deletes a bookmark', function () {

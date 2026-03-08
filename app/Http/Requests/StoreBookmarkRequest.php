@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Concept;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBookmarkRequest extends FormRequest
@@ -14,7 +15,12 @@ class StoreBookmarkRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'concept_id' => ['required', 'uuid', 'exists:concepts,id'],
+            'concept_slug' => ['required', 'string', 'max:255', 'exists:concepts,slug'],
         ];
+    }
+
+    public function conceptId(): string
+    {
+        return Concept::where('slug', $this->validated('concept_slug'))->value('id');
     }
 }

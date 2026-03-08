@@ -50,8 +50,8 @@ export async function markComplete(conceptSlug: string): Promise<ProgressEntry> 
 // ─── Guest Migration ────────────────────────────────────────
 
 export interface GuestMigrationPayload {
-  bookmarked_slugs: string[];
-  completed_slugs: string[];
+  bookmarks: string[];
+  completed: string[];
 }
 
 export async function migrateGuest(payload: GuestMigrationPayload): Promise<void> {

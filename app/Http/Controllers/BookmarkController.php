@@ -27,7 +27,7 @@ class BookmarkController extends Controller
         $bookmark = $request->user()
             ->bookmarks()
             ->firstOrCreate(
-                ['concept_id' => $request->validated('concept_id')],
+                ['concept_id' => $request->conceptId()],
                 ['created_at' => now()],
             );
 

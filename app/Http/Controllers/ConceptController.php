@@ -38,7 +38,7 @@ class ConceptController extends Controller
         }
 
         if ($request->filled('q')) {
-            $search = $request->input('q');
+            $search = str_replace(['%', '_'], ['\%', '\_'], $request->input('q'));
             $query->where(function ($q) use ($search) {
                 $q->where('label', 'like', "%{$search}%")
                   ->orWhere('description', 'like', "%{$search}%");

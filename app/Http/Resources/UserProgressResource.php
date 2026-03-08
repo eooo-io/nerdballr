@@ -12,6 +12,7 @@ class UserProgressResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'concept_slug' => $this->whenLoaded('concept', fn () => $this->concept->slug),
             'concept' => new ConceptSummaryResource($this->whenLoaded('concept')),
             'completed_at' => $this->completed_at,
         ];

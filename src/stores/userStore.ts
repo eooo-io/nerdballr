@@ -118,8 +118,8 @@ export const useUserStore = create<UserState>()(
 
         try {
           await migrateGuest({
-            bookmarked_slugs: bookmarkedSlugs,
-            completed_slugs: completedSlugs,
+            bookmarks: bookmarkedSlugs,
+            completed: completedSlugs,
           });
           // After migration, sync from server to get proper IDs
           await get().syncFromServer();

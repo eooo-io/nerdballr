@@ -26,7 +26,7 @@ class ProgressController extends Controller
         $progress = $request->user()
             ->progress()
             ->firstOrCreate(
-                ['concept_id' => $request->validated('concept_id')],
+                ['concept_id' => $request->conceptId()],
                 ['completed_at' => now()],
             );
 

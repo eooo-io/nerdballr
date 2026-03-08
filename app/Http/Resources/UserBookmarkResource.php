@@ -12,6 +12,8 @@ class UserBookmarkResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'concept_id' => $this->concept_id,
+            'concept_slug' => $this->whenLoaded('concept', fn () => $this->concept->slug),
             'concept' => new ConceptSummaryResource($this->whenLoaded('concept')),
             'created_at' => $this->created_at,
         ];
