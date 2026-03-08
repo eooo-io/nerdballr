@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+
+@theme {
+  --color-navy: #060c17;
+  --color-navy-mid: #0d1628;
+  --color-navy-panel: #0e1a2e;
+  --color-navy-border: #1a2d4d;
+  --color-cyan: #00e5ff;
+  --color-cyan-dim: #0096aa;
+  --color-amber: #ffb800;
+  --color-amber-dim: #8a6200;
+  --color-field-green: #1a472a;
+  --color-field-line: rgba(255, 255, 255, 0.133);
+  --color-field-bg: #0f1419;
+  --color-panel-bg: #1a1d23;
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+
+  --font-family-mono: 'DM Mono', monospace;
+  --font-family-display: 'Orbitron', monospace;
+  --font-family-system: 'Share Tech Mono', monospace;
+}
+
+/* ─── Base ────────────────────────────────────────────────────── */
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--color-navy);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Font Loading ────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'DM Mono';
+  font-display: swap;
+  src: local('DM Mono');
+}
