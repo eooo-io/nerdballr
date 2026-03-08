@@ -1,0 +1,154 @@
+/* ═══════════════════════════════════════════════════════════════
+   Playback Controls Strip
+═══════════════════════════════════════════════════════════════ */
+
+.playback-strip {
+  background: rgba(10, 18, 36, 0.85);
+  border: 1px solid rgba(26, 45, 77, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ─── Phase label ───────────────────────────────────────────── */
+.playback-phase-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.playback-phase-index {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--color-amber);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.playback-phase-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+}
+
+/* ─── Controls row ──────────────────────────────────────────── */
+.playback-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.playback-btn {
+  background: transparent;
+  border: 1px solid rgba(26, 45, 77, 0.8);
+  color: var(--color-cyan-dim);
+  cursor: pointer;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.playback-btn:hover:not(:disabled) {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.04);
+}
+
+.playback-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.playback-btn-main {
+  padding: 8px 16px;
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+.playback-btn-main:hover:not(:disabled) {
+  background: rgba(0, 229, 255, 0.08);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+}
+
+/* ─── Scrubber ──────────────────────────────────────────────── */
+.playback-scrubber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.scrubber-dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(26, 45, 77, 0.9);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.scrubber-dot.active {
+  background: var(--color-cyan);
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.scrubber-dot.passed {
+  background: var(--color-cyan-dim);
+  border-color: var(--color-cyan-dim);
+}
+
+.scrubber-dot:hover:not(.active) {
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.15);
+}
+
+/* ─── Speed selector ────────────────────────────────────────── */
+.playback-speed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.speed-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: rgba(156, 163, 175, 0.5);
+  background: transparent;
+  border: 1px solid rgba(26, 45, 77, 0.6);
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.speed-btn.active {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.speed-btn:hover:not(.active) {
+  color: var(--color-text-primary);
+  border-color: rgba(156, 163, 175, 0.35);
+}
+
+/* ─── Phase description ─────────────────────────────────────── */
+.playback-description {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  padding-top: 4px;
+  border-top: 1px solid rgba(26, 45, 77, 0.4);
+}

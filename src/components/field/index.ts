@@ -6,3 +6,5 @@ export { GeometryOverlayComponent } from './GeometryOverlay';
 export { HighlightOverlayComponent } from './HighlightOverlay';
 export { AnnotationComponent } from './Annotation';
 export { BallToken } from './BallToken';
+export { AnimatedField } from './AnimatedField';
+export { PlaybackControls } from './PlaybackControls';
