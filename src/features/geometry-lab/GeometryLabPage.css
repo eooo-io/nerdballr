@@ -1,0 +1,218 @@
+/* ═══════════════════════════════════════════════════════════════
+   Geometry Lab
+═══════════════════════════════════════════════════════════════ */
+
+.geolab-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ───────────────────────────────────────────────── */
+
+.geolab-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(26, 45, 77, 0.6);
+  background: rgba(10, 18, 36, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.geolab-back {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-cyan-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.geolab-back:hover {
+  color: var(--color-cyan);
+}
+
+.geolab-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* ─── Body ─────────────────────────────────────────────────── */
+
+.geolab-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.geolab-field-panel {
+  flex: 1;
+  padding: 16px;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.geolab-field-panel svg {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 120px);
+}
+
+.geolab-loading,
+.geolab-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.4;
+}
+
+/* ─── Controls ─────────────────────────────────────────────── */
+
+.geolab-controls {
+  width: 300px;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(26, 45, 77, 0.6);
+  background: rgba(10, 18, 36, 0.5);
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.geolab-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.geolab-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cyan-dim);
+}
+
+.geolab-value {
+  color: var(--color-cyan);
+  font-weight: 400;
+}
+
+.geolab-select {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-primary);
+  background: rgba(10, 18, 36, 0.8);
+  border: 1px solid rgba(26, 45, 77, 0.8);
+  padding: 8px 10px;
+  cursor: pointer;
+  appearance: none;
+}
+
+.geolab-select:focus {
+  outline: none;
+  border-color: var(--color-cyan);
+}
+
+.geolab-select option {
+  background: #0d1628;
+}
+
+.geolab-desc,
+.geolab-phase-desc,
+.geolab-explanation {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.geolab-explanation {
+  color: var(--color-text-primary);
+  opacity: 0.8;
+}
+
+/* ─── Phase buttons ────────────────────────────────────────── */
+
+.geolab-phase-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.geolab-phase-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(26, 45, 77, 0.8);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.geolab-phase-btn.active {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.geolab-phase-btn:hover:not(.active) {
+  border-color: var(--color-cyan-dim);
+  color: var(--color-text-primary);
+}
+
+/* ─── Slider ───────────────────────────────────────────────── */
+
+.geolab-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(26, 45, 77, 0.8);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.geolab-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--color-cyan);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+}
+
+.geolab-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--color-cyan);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+}

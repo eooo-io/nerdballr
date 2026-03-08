@@ -1,0 +1,179 @@
+/* ═══════════════════════════════════════════════════════════════
+   Compare Mode
+═══════════════════════════════════════════════════════════════ */
+
+.compare-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ───────────────────────────────────────────────── */
+
+.compare-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(26, 45, 77, 0.6);
+  background: rgba(10, 18, 36, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.compare-back {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-cyan-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.compare-back:hover {
+  color: var(--color-cyan);
+}
+
+.compare-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.compare-sync-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid rgba(26, 45, 77, 0.8);
+  color: var(--color-text-secondary);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.compare-sync-btn.active {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.compare-sync-btn:hover {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+/* ─── Selectors ────────────────────────────────────────────── */
+
+.compare-selectors {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(26, 45, 77, 0.4);
+}
+
+.compare-vs {
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-amber);
+  flex-shrink: 0;
+}
+
+.concept-selector {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.concept-selector-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cyan-dim);
+}
+
+.concept-selector-select {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-primary);
+  background: rgba(10, 18, 36, 0.8);
+  border: 1px solid rgba(26, 45, 77, 0.8);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  appearance: none;
+}
+
+.concept-selector-select:focus {
+  outline: none;
+  border-color: var(--color-cyan);
+}
+
+.concept-selector-select option {
+  background: #0d1628;
+  color: var(--color-text-primary);
+}
+
+/* ─── Fields ───────────────────────────────────────────────── */
+
+.compare-fields {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.compare-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  min-width: 0;
+}
+
+.compare-slot + .compare-slot {
+  border-left: 1px solid rgba(26, 45, 77, 0.4);
+}
+
+.compare-slot-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin-bottom: 8px;
+}
+
+.compare-field svg {
+  width: 100%;
+  height: auto;
+}
+
+.compare-empty,
+.compare-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.4;
+}
+
+/* ─── Shared playback ──────────────────────────────────────── */
+
+.compare-playback {
+  padding: 0 20px 12px;
+}
