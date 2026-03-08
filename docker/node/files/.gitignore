@@ -1,0 +1,31 @@
+# FFIS root gitignore
+
+# Secrets — never commit
+.env
+
+# Docker volumes (local only)
+docker/volumes/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Backend (Laravel has its own .gitignore)
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/storage/logs/*.log
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
