@@ -29,12 +29,13 @@ RULES:
 6. Never describe play outcomes or game results. Describe spatial and timing mechanics only.
 PROMPT;
 
+    // Order matters: more specific patterns must come before general ones
     private const INTENT_PATTERNS = [
-        'explain' => '/\b(what is|explain|how does|how do|tell me about|describe)\b/i',
-        'compare' => '/\b(vs\.?|versus|compare|difference between|differ)\b/i',
-        'counter' => '/\b(how (do you |to )?beat|what stops|counter|exploit|weakness)\b/i',
         'pre-snap-read' => '/\b(what should.*(see|read|look)|pre.?snap|what does.*tell)\b/i',
         'recommend' => '/\b(what should I (study|learn|look at)|recommend|suggest|next)\b/i',
+        'compare' => '/\b(vs\.?|versus|compare|difference between|differ)\b/i',
+        'counter' => '/\b(how (do you |to )?beat|what stops|counter|exploit|weakness)\b/i',
+        'explain' => '/\b(what is|explain|how does|how do|tell me about|describe)\b/i',
     ];
 
     public function query(string $userQuery, array $conceptSlugs): array
@@ -81,7 +82,7 @@ PROMPT;
             ->get();
     }
 
-    public function buildContext(\Illuminate\Database\Eloquent\Collection $concepts): string
+    public function buildContext(\Illuminate\Support\Collection $concepts): string
     {
         $context = '';
         $estimatedTokens = 0;
