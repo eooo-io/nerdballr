@@ -14,7 +14,6 @@ class UserBookmark extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id',
         'concept_id',
     ];
 

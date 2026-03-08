@@ -25,7 +25,7 @@ class ConceptFullResource extends JsonResource
             'phases' => $this->phases,
             'counters' => $this->counters,
             'related' => $this->related,
-            'ai_context' => $this->ai_context,
+            'ai_context' => $this->when($request->user() !== null, $this->ai_context),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

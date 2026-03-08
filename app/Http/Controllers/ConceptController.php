@@ -10,8 +10,20 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ConceptController extends Controller
 {
+    private const VALID_CATEGORIES = [
+        'formation-offense', 'formation-defense', 'coverage',
+        'blitz', 'route-concept', 'pocket-mechanics',
+        'ball-physics', 'geometry',
+    ];
+
     public function index(Request $request): AnonymousResourceCollection
     {
+        $request->validate([
+            'category' => ['sometimes', 'string', 'in:'.implode(',', self::VALID_CATEGORIES)],
+            'tags' => ['sometimes', 'string', 'max:200'],
+            'q' => ['sometimes', 'string', 'max:100'],
+        ]);
+
         $query = Concept::query();
 
         if ($request->filled('category')) {
@@ -19,7 +31,7 @@ class ConceptController extends Controller
         }
 
         if ($request->filled('tags')) {
-            $tags = explode(',', $request->input('tags'));
+            $tags = array_slice(explode(',', $request->input('tags')), 0, 10);
             foreach ($tags as $tag) {
                 $query->whereJsonContains('tags', trim($tag));
             }

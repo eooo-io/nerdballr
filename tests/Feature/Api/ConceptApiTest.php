@@ -95,11 +95,22 @@ it('shows a full concept by slug', function () {
             'data' => [
                 'id', 'slug', 'label', 'category', 'subcategory', 'tags',
                 'difficulty', 'layers', 'description', 'explanation',
-                'roster', 'phases', 'counters', 'related', 'ai_context',
+                'roster', 'phases', 'counters', 'related',
                 'created_at', 'updated_at',
             ],
         ])
-        ->assertJsonPath('data.slug', $concept->slug);
+        ->assertJsonPath('data.slug', $concept->slug)
+        ->assertJsonMissingPath('data.ai_context');
+});
+
+it('includes ai_context for authenticated users', function () {
+    $user = \App\Models\User::factory()->create();
+    $concept = Concept::factory()->create();
+
+    $response = $this->actingAs($user)->getJson("/api/concepts/{$concept->slug}");
+
+    $response->assertOk()
+        ->assertJsonPath('data.ai_context', $concept->ai_context);
 });
 
 it('returns 404 for missing concept slug', function () {
@@ -112,4 +123,18 @@ it('concept index is publicly accessible without auth', function () {
     $response = $this->getJson('/api/concepts');
 
     $response->assertOk();
+});
+
+it('rejects invalid category filter', function () {
+    $response = $this->getJson('/api/concepts?category=invalid-category');
+
+    $response->assertUnprocessable()
+        ->assertJsonValidationErrors(['category']);
+});
+
+it('rejects overly long search query', function () {
+    $response = $this->getJson('/api/concepts?q='.str_repeat('a', 101));
+
+    $response->assertUnprocessable()
+        ->assertJsonValidationErrors(['q']);
 });
