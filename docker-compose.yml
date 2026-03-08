@@ -61,9 +61,10 @@ services:
       - DB_PORT=3306
       - DB_DATABASE=${DB_DATABASE:-ffis}
       - DB_USERNAME=${DB_USERNAME:-ffis}
-      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redis_secret}
       - CACHE_DRIVER=redis
       - QUEUE_CONNECTION=redis
       - SESSION_DRIVER=redis
@@ -113,10 +114,10 @@ services:
     container_name: ffis_mariadb
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secret}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-password}
       MARIADB_DATABASE: ${DB_DATABASE:-ffis}
       MARIADB_USER: ${DB_USERNAME:-ffis}
-      MARIADB_PASSWORD: ${DB_PASSWORD:-secret}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-password}
     ports:
       - "3306:3306"
     volumes:
@@ -206,7 +207,7 @@ services:
       - DB_HOST=mariadb
       - DB_DATABASE=${DB_DATABASE:-ffis}
       - DB_USERNAME=${DB_USERNAME:-ffis}
-      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
       - REDIS_HOST=redis
       - REDIS_PASSWORD=${REDIS_PASSWORD:-redis_secret}
       - QUEUE_CONNECTION=redis
