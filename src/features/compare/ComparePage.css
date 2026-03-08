@@ -177,3 +177,25 @@
 .compare-playback {
   padding: 0 20px 12px;
 }
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .compare-fields {
+    flex-direction: column;
+  }
+
+  .compare-slot + .compare-slot {
+    border-left: none;
+    border-top: 1px solid rgba(26, 45, 77, 0.4);
+  }
+
+  .compare-selectors {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .compare-vs {
+    text-align: center;
+  }
+}

@@ -298,3 +298,27 @@
   background: rgba(0, 229, 255, 0.06);
   border-color: var(--color-cyan);
 }
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .lesson-body {
+    flex-direction: column;
+  }
+
+  .lesson-info-panel {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(26, 45, 77, 0.6);
+    max-height: 300px;
+  }
+
+  .lesson-header {
+    flex-wrap: wrap;
+  }
+
+  .lesson-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
