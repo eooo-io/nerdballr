@@ -6,6 +6,7 @@ import { HomePage } from '@/components/HomePage';
 import { LessonPage } from '@/features/lesson/LessonPage';
 import { ComparePage } from '@/features/compare/ComparePage';
 import { GeometryLabPage } from '@/features/geometry-lab/GeometryLabPage';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import { getUser } from '@/api/auth';
@@ -36,16 +37,18 @@ function AppInit() {
 export function App() {
   return (
     <BrowserRouter>
-      <AppInit />
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/lesson/:slug" element={<LessonPage />} />
-          <Route path="/compare" element={<ComparePage />} />
-          <Route path="/geometry-lab" element={<GeometryLabPage />} />
-        </Route>
-      </Routes>
+      <ErrorBoundary>
+        <AppInit />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/lesson/:slug" element={<LessonPage />} />
+            <Route path="/compare" element={<ComparePage />} />
+            <Route path="/geometry-lab" element={<GeometryLabPage />} />
+          </Route>
+        </Routes>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 }

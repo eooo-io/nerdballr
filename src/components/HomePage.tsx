@@ -1,8 +1,9 @@
-import { useEffect, useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useMemo, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import { listConcepts } from '@/api/concepts';
+import { logout } from '@/api/auth';
 import type { ConceptSummary, ConceptCategory } from '@/types';
 import './HomePage.css';
 
@@ -24,12 +25,24 @@ const DIFFICULTY_COLORS: Record<string, string> = {
 
 export function HomePage() {
   const user = useAuthStore((s) => s.user);
+  const setUser = useAuthStore((s) => s.setUser);
   const [concepts, setConcepts] = useState<ConceptSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<ConceptCategory | ''>('');
   const bookmarkedSlugs = useUserStore((s) => s.bookmarkedSlugs);
   const completedSlugs = useUserStore((s) => s.completedSlugs);
+  const clearLocal = useUserStore((s) => s.clearLocal);
+  const navigate = useNavigate();
+
+  const handleLogout = useCallback(async () => {
+    try {
+      await logout();
+    } catch { /* ignore */ }
+    setUser(null);
+    clearLocal();
+    navigate('/login');
+  }, [setUser, clearLocal, navigate]);
 
   useEffect(() => {
     listConcepts()
@@ -69,7 +82,12 @@ export function HomePage() {
           <Link to="/compare" className="home-nav-link">Compare</Link>
           <Link to="/geometry-lab" className="home-nav-link">Geometry Lab</Link>
           {user ? (
-            <span className="home-user">{user.name}</span>
+            <>
+              <span className="home-user">{user.name}</span>
+              <button className="home-nav-link home-nav-logout" onClick={handleLogout}>
+                Logout
+              </button>
+            </>
           ) : (
             <Link to="/login" className="home-nav-link home-nav-login">Sign In</Link>
           )}

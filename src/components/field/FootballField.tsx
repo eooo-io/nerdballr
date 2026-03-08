@@ -16,6 +16,8 @@ export function FootballField({ children, className = '' }: FootballFieldProps) 
       xmlns="http://www.w3.org/2000/svg"
       className={`w-full h-full ${className}`}
       style={{ background: 'var(--color-field-bg, #0f1419)' }}
+      role="img"
+      aria-label="Football field tactical diagram"
     >
       <defs>
         <pattern id="field-hash" x="0" y="0" width={FIELD_WIDTH} height={FIELD_HEIGHT} patternUnits="userSpaceOnUse">
