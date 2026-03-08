@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\ConceptController;
+use App\Http\Controllers\GuestMigrationController;
 use App\Http\Controllers\ProgressController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,11 +13,20 @@ Route::get('/ping', fn () => response()->json(['status' => 'ok']));
 Route::get('/concepts', [ConceptController::class, 'index']);
 Route::get('/concepts/{slug}', [ConceptController::class, 'show']);
 
-// Authenticated user routes
+// Authentication
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Authenticated routes
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'user']);
+
     Route::apiResource('user/bookmarks', BookmarkController::class)
         ->only(['index', 'store', 'destroy']);
 
     Route::get('user/progress', [ProgressController::class, 'index']);
     Route::post('user/progress', [ProgressController::class, 'store']);
+
+    Route::post('user/migrate-guest', [GuestMigrationController::class, 'migrate']);
 });
