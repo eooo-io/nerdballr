@@ -7,7 +7,6 @@ use App\Http\Resources\UserBookmarkResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 
 class BookmarkController extends Controller
 {

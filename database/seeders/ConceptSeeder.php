@@ -85,7 +85,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['cover-one', 'a-gap-blitz'],
             'related' => ['pistol', 'eleven-personnel'],
-            'ai_context' => "Shotgun Spread: 5-wide formation with QB in shotgun (5 yards behind center). Forces defense to cover full field width. No run threat from empty backfield. Best against zone coverage where spacing creates natural windows. Vulnerable to man press coverage and interior blitz pressure due to empty backfield.",
+            'ai_context' => 'Shotgun Spread: 5-wide formation with QB in shotgun (5 yards behind center). Forces defense to cover full field width. No run threat from empty backfield. Best against zone coverage where spacing creates natural windows. Vulnerable to man press coverage and interior blitz pressure due to empty backfield.',
         ];
     }
 
@@ -128,7 +128,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['nickel', 'a-gap-blitz'],
             'related' => ['eleven-personnel', 'shotgun-spread'],
-            'ai_context' => "I-Formation: QB under center, FB at 4 yards, RB at 7 yards in vertical alignment. Primary run formation with lead-blocking fullback. Tight end provides extra blocker on run side. Two wide receivers keep defense honest. Strong against light boxes (5-6 defenders). Weak against 8-man fronts and run-blitz schemes.",
+            'ai_context' => 'I-Formation: QB under center, FB at 4 yards, RB at 7 yards in vertical alignment. Primary run formation with lead-blocking fullback. Tight end provides extra blocker on run side. Two wide receivers keep defense honest. Strong against light boxes (5-6 defenders). Weak against 8-man fronts and run-blitz schemes.',
         ];
     }
 
@@ -170,7 +170,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['four-three-base', 'cover-one'],
             'related' => ['i-formation', 'shotgun-spread'],
-            'ai_context' => "Pistol: QB at 4 yards, RB directly behind at 7 yards. Hybrid formation combining shotgun passing vision with downhill running. RB alignment hides run direction (unlike offset shotgun). Ideal for zone-read, power, and RPO concepts. Forces the defense to respect both run and pass on every snap.",
+            'ai_context' => 'Pistol: QB at 4 yards, RB directly behind at 7 yards. Hybrid formation combining shotgun passing vision with downhill running. RB alignment hides run direction (unlike offset shotgun). Ideal for zone-read, power, and RPO concepts. Forces the defense to respect both run and pass on every snap.',
         ];
     }
 
@@ -207,7 +207,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['nickel', 'cover-two'],
             'related' => ['shotgun-spread', 'pistol'],
-            'ai_context' => "11 Personnel: 1 RB, 1 TE, 3 WR. Most common NFL grouping (~60% of snaps). Maximum formation flexibility — same personnel can deploy in spread, bunch, trips, tight. TE versatility (inline blocker or receiver) creates pre-snap ambiguity. Forces defense into nickel-or-base decision that reveals coverage intent.",
+            'ai_context' => '11 Personnel: 1 RB, 1 TE, 3 WR. Most common NFL grouping (~60% of snaps). Maximum formation flexibility — same personnel can deploy in spread, bunch, trips, tight. TE versatility (inline blocker or receiver) creates pre-snap ambiguity. Forces defense into nickel-or-base decision that reveals coverage intent.',
         ];
     }
 
@@ -248,7 +248,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['shotgun-spread', 'eleven-personnel'],
             'related' => ['three-four-base', 'nickel'],
-            'ai_context' => "4-3 Base: Four down linemen (2 DE, 2 DT), three linebackers (WILL, MIKE, SAM), four defensive backs (2 CB, FS, SS). Standard run-defense front. Front four controls gaps, linebackers fill. Strong against power running and pro-style formations. Vulnerable to spread formations that create space in the second level.",
+            'ai_context' => '4-3 Base: Four down linemen (2 DE, 2 DT), three linebackers (WILL, MIKE, SAM), four defensive backs (2 CB, FS, SS). Standard run-defense front. Front four controls gaps, linebackers fill. Strong against power running and pro-style formations. Vulnerable to spread formations that create space in the second level.',
         ];
     }
 
@@ -286,7 +286,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['shotgun-spread', 'mesh'],
             'related' => ['four-three-base', 'zone-blitz'],
-            'ai_context' => "3-4 Base: Three down linemen (NT, 2 DE), four linebackers (2 OLB, 2 ILB), four DBs. Primary advantage is blitz disguise — any LB can rush. Requires dominant NT to anchor center. OLBs must be athletic pass rushers who can also drop into coverage. Versatile against both run and pass. Can morph into 4-man front by walking OLB to line.",
+            'ai_context' => '3-4 Base: Three down linemen (NT, 2 DE), four linebackers (2 OLB, 2 ILB), four DBs. Primary advantage is blitz disguise — any LB can rush. Requires dominant NT to anchor center. OLBs must be athletic pass rushers who can also drop into coverage. Versatile against both run and pass. Can morph into 4-man front by walking OLB to line.',
         ];
     }
 
@@ -325,7 +325,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['i-formation', 'pistol'],
             'related' => ['dime', 'four-three-base'],
-            'ai_context' => "Nickel: 4 DL, 2 LB, 5 DB (adds slot corner). Standard defense against 3-WR formations. Matches receiver count with defensive backs. Trade-off: weaker run defense with only 2 LBs. Nickel corner must handle slot receivers in both man and zone. Now functionally the base defense for many NFL teams due to pass-heavy offenses.",
+            'ai_context' => 'Nickel: 4 DL, 2 LB, 5 DB (adds slot corner). Standard defense against 3-WR formations. Matches receiver count with defensive backs. Trade-off: weaker run defense with only 2 LBs. Nickel corner must handle slot receivers in both man and zone. Now functionally the base defense for many NFL teams due to pass-heavy offenses.',
         ];
     }
 
@@ -364,7 +364,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['i-formation', 'pistol'],
             'related' => ['nickel', 'cover-two'],
-            'ai_context' => "Dime: 4 DL, 1 LB, 6 DB (adds dime back). Situational passing-down package vs 4-WR sets. Maximum coverage ability with 6 defensive backs. Extremely weak against the run — only 1 LB. Signals pass expectation to offense, making draws and screens effective counters. Used on 3rd-and-long and obvious passing situations.",
+            'ai_context' => 'Dime: 4 DL, 1 LB, 6 DB (adds dime back). Situational passing-down package vs 4-WR sets. Maximum coverage ability with 6 defensive backs. Extremely weak against the run — only 1 LB. Signals pass expectation to offense, making draws and screens effective counters. Used on 3rd-and-long and obvious passing situations.',
         ];
     }
 
@@ -444,7 +444,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['mesh', 'slant-flat'],
             'related' => ['cover-zero', 'cover-two'],
-            'ai_context' => "Cover 1 (Man Free): Man-to-man on all receivers, single free safety deep center. Most common man coverage. FS reads QB eyes and breaks on throw. Allows 1-2 LBs to blitz while maintaining deep help. Vulnerable to crossing routes (mesh, drag) that create picks. Middle of field open to seams and crossers. Strong against vertical and outside routes with FS help.",
+            'ai_context' => 'Cover 1 (Man Free): Man-to-man on all receivers, single free safety deep center. Most common man coverage. FS reads QB eyes and breaks on throw. Allows 1-2 LBs to blitz while maintaining deep help. Vulnerable to crossing routes (mesh, drag) that create picks. Middle of field open to seams and crossers. Strong against vertical and outside routes with FS help.',
         ];
     }
 
@@ -487,7 +487,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['four-verticals', 'smash'],
             'related' => ['cover-three', 'cover-four'],
-            'ai_context' => "Cover 2: Two deep safeties split field in half, 5 underneath zones (2 CB flats, 3 LB hooks/curls). Foundational zone defense. CBs play flat zones and funnel receivers inside. Strong run support with both safeties. Weakness: deep middle seam between safeties. Beaten by four verticals (stretches 2 deep into 4), smash concept (high-low on CB), and post routes splitting the safeties.",
+            'ai_context' => 'Cover 2: Two deep safeties split field in half, 5 underneath zones (2 CB flats, 3 LB hooks/curls). Foundational zone defense. CBs play flat zones and funnel receivers inside. Strong run support with both safeties. Weakness: deep middle seam between safeties. Beaten by four verticals (stretches 2 deep into 4), smash concept (high-low on CB), and post routes splitting the safeties.',
         ];
     }
 
@@ -527,7 +527,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['smash', 'slant-flat'],
             'related' => ['cover-two', 'cover-four'],
-            'ai_context' => "Cover 3: Field split into deep thirds (2 CBs + FS), 4 underneath zones. SS rolls down as extra run defender. Most common zone coverage. Simple, sound, versatile. Weakness: flat zones and seam-to-flat high-low concepts (smash). CBs play deep so underneath flat coverage depends on LBs. Strong against deep passes but vulnerable to curl-flat and smash concepts.",
+            'ai_context' => 'Cover 3: Field split into deep thirds (2 CBs + FS), 4 underneath zones. SS rolls down as extra run defender. Most common zone coverage. Simple, sound, versatile. Weakness: flat zones and seam-to-flat high-low concepts (smash). CBs play deep so underneath flat coverage depends on LBs. Strong against deep passes but vulnerable to curl-flat and smash concepts.',
         ];
     }
 
@@ -567,7 +567,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['mesh', 'slant-flat'],
             'related' => ['cover-two', 'cover-three'],
-            'ai_context' => "Cover 4 (Quarters): Four deep quarter-zones (2 CB + 2 S), 3 underneath. Pattern-matching zone that reads vertical threats and adjusts. Strong run support (safeties can play downhill on run). Strong deep pass defense (4 deep). Weakness: short-to-intermediate zones with only 3 LBs underneath. Beaten by crossing routes, mesh, and flood concepts that overload short zones.",
+            'ai_context' => 'Cover 4 (Quarters): Four deep quarter-zones (2 CB + 2 S), 3 underneath. Pattern-matching zone that reads vertical threats and adjusts. Strong run support (safeties can play downhill on run). Strong deep pass defense (4 deep). Weakness: short-to-intermediate zones with only 3 LBs underneath. Beaten by crossing routes, mesh, and flood concepts that overload short zones.',
         ];
     }
 
@@ -615,7 +615,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['shotgun-spread', 'mesh'],
             'related' => ['a-gap-blitz', 'three-four-base'],
-            'ai_context' => "Zone Blitz: Sends unexpected rushers while dropping DL into coverage zones behind them. Creates pass protection confusion — offense blocks expected rushers but pressure comes from different gaps. Zone coverage behind the blitz prevents hot-route exploitation. Total rushers often the same (4-5) but from unexpected positions. Countered by quick-release passing and sight adjustments.",
+            'ai_context' => 'Zone Blitz: Sends unexpected rushers while dropping DL into coverage zones behind them. Creates pass protection confusion — offense blocks expected rushers but pressure comes from different gaps. Zone coverage behind the blitz prevents hot-route exploitation. Total rushers often the same (4-5) but from unexpected positions. Countered by quick-release passing and sight adjustments.',
         ];
     }
 
@@ -657,7 +657,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['shotgun-spread', 'slant-flat'],
             'related' => ['zone-blitz', 'cover-zero'],
-            'ai_context' => "A-Gap Blitz: Interior blitz through the gaps between center and guards. Shortest path to the QB. Center can only block one gap, creating a numbers advantage. Collapses pocket from inside, eliminating step-up escape route. Often shown as double-A threat (both gaps) with only one actually blitzing. Countered by quick passing, hot routes, and center identification.",
+            'ai_context' => 'A-Gap Blitz: Interior blitz through the gaps between center and guards. Shortest path to the QB. Center can only block one gap, creating a numbers advantage. Collapses pocket from inside, eliminating step-up escape route. Often shown as double-A threat (both gaps) with only one actually blitzing. Countered by quick passing, hot routes, and center identification.',
         ];
     }
 
@@ -703,7 +703,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['cover-two', 'zone-blitz'],
             'related' => ['slant-flat', 'four-verticals'],
-            'ai_context' => "Mesh: Two shallow crossing routes at 5-6 yards crossing each other. Creates natural picks/rubs against man coverage — defenders get caught in traffic. Effective against both man (rub) and zone (finds windows). Includes vertical clear-out and flat checkdown. QB reads crossers first, then checkdown. Primary man-coverage beater.",
+            'ai_context' => 'Mesh: Two shallow crossing routes at 5-6 yards crossing each other. Creates natural picks/rubs against man coverage — defenders get caught in traffic. Effective against both man (rub) and zone (finds windows). Includes vertical clear-out and flat checkdown. QB reads crossers first, then checkdown. Primary man-coverage beater.',
         ];
     }
 
@@ -833,7 +833,7 @@ class ConceptSeeder extends Seeder
             ],
             'counters' => ['cover-two', 'cover-three'],
             'related' => ['mesh', 'smash'],
-            'ai_context' => "Slant-Flat: Quick-release concept. Outside WR runs 45-degree slant inside, RB/slot flares to flat. High-low on flat defender. Against man/blitz: slant beats press inside with quick throw. Against zone: read flat defender — if he sinks, throw flat; if he stays, throw slant. First-call blitz beater. Ball out in under 2 seconds.",
+            'ai_context' => 'Slant-Flat: Quick-release concept. Outside WR runs 45-degree slant inside, RB/slot flares to flat. High-low on flat defender. Against man/blitz: slant beats press inside with quick throw. Against zone: read flat defender — if he sinks, throw flat; if he stays, throw slant. First-call blitz beater. Ball out in under 2 seconds.',
         ];
     }
 

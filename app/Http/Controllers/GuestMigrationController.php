@@ -26,6 +26,7 @@ class GuestMigrationController extends Controller
             foreach ($request->validated('bookmarks') as $slug) {
                 if (! in_array($slug, $foundSlugs)) {
                     $result['errors'][] = "Concept not found: {$slug}";
+
                     continue;
                 }
             }
@@ -48,6 +49,7 @@ class GuestMigrationController extends Controller
             foreach ($request->validated('completed') as $slug) {
                 if (! in_array($slug, $foundSlugs)) {
                     $result['errors'][] = "Concept not found: {$slug}";
+
                     continue;
                 }
             }
