@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginScene } from './LoginScene';
 import { login, register } from '@/api/auth';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 import './LoginPage.css';
 
 type Tab = 'login' | 'register';
@@ -20,6 +21,8 @@ export function LoginPage() {
 
   const navigate = useNavigate();
   const setUser = useAuthStore((s) => s.setUser);
+  const migrateGuestState = useUserStore((s) => s.migrateGuestState);
+  const syncFromServer = useUserStore((s) => s.syncFromServer);
 
   useEffect(() => {
     const tick = () => setClock(new Date().toTimeString().slice(0, 8));
@@ -35,6 +38,8 @@ export function LoginPage() {
     try {
       const user = await login({ email, password });
       setUser(user);
+      await migrateGuestState();
+      await syncFromServer();
       navigate('/');
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
@@ -56,6 +61,8 @@ export function LoginPage() {
         password_confirmation: passwordConfirm,
       });
       setUser(user);
+      await migrateGuestState();
+      await syncFromServer();
       navigate('/');
     } catch (err: unknown) {
       const data = (err as { response?: { data?: { message?: string; errors?: Record<string, string[]> } } })?.response?.data;

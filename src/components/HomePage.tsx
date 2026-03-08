@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 import { listConcepts } from '@/api/concepts';
 import type { ConceptSummary, ConceptCategory } from '@/types';
 import './HomePage.css';
@@ -27,6 +28,8 @@ export function HomePage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState<ConceptCategory | ''>('');
+  const bookmarkedSlugs = useUserStore((s) => s.bookmarkedSlugs);
+  const completedSlugs = useUserStore((s) => s.completedSlugs);
 
   useEffect(() => {
     listConcepts()
@@ -125,10 +128,20 @@ export function HomePage() {
                     <span key={t} className="concept-card-tag">{t}</span>
                   ))}
                 </div>
-                <div className="concept-card-layers">
-                  {c.layers.map((l) => (
-                    <span key={l} className="concept-card-layer">L{l}</span>
-                  ))}
+                <div className="concept-card-footer">
+                  <div className="concept-card-layers">
+                    {c.layers.map((l) => (
+                      <span key={l} className="concept-card-layer">L{l}</span>
+                    ))}
+                  </div>
+                  <div className="concept-card-badges">
+                    {bookmarkedSlugs.includes(c.slug) && (
+                      <span className="concept-card-bookmarked">BM</span>
+                    )}
+                    {completedSlugs.includes(c.slug) && (
+                      <span className="concept-card-completed">OK</span>
+                    )}
+                  </div>
                 </div>
               </Link>
             ))}

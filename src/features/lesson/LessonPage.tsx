@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useConceptStore } from '@/stores/conceptStore';
 import { usePlaybackStore } from '@/stores/playbackStore';
+import { useUserStore } from '@/stores/userStore';
+import { useAuthStore } from '@/stores/authStore';
 import { AnimatedField, PlaybackControls } from '@/components/field';
 import { AiSidebar } from '@/components/ai';
 import './LessonPage.css';
@@ -11,6 +13,8 @@ export function LessonPage() {
   const { concept, isLoading, error, loadConcept, clearConcept } = useConceptStore();
   const reset = usePlaybackStore((s) => s.reset);
   const currentPhaseIndex = usePlaybackStore((s) => s.currentPhase);
+  const user = useAuthStore((s) => s.user);
+  const { toggleBookmark, markConceptComplete, isBookmarked, isCompleted } = useUserStore();
 
   useEffect(() => {
     if (slug) loadConcept(slug);
@@ -55,6 +59,22 @@ export function LessonPage() {
               <span key={t} className="lesson-tag">{t}</span>
             ))}
           </div>
+        </div>
+        <div className="lesson-actions">
+          <button
+            className={`lesson-action-btn ${isBookmarked(concept.slug) ? 'active' : ''}`}
+            onClick={() => toggleBookmark(concept.slug, !!user)}
+            title={isBookmarked(concept.slug) ? 'Remove bookmark' : 'Bookmark'}
+          >
+            {isBookmarked(concept.slug) ? 'Bookmarked' : 'Bookmark'}
+          </button>
+          <button
+            className={`lesson-action-btn lesson-complete-btn ${isCompleted(concept.slug) ? 'active' : ''}`}
+            onClick={() => markConceptComplete(concept.slug, !!user)}
+            disabled={isCompleted(concept.slug)}
+          >
+            {isCompleted(concept.slug) ? 'Completed' : 'Mark Complete'}
+          </button>
         </div>
       </header>
 

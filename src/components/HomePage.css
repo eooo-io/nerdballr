@@ -253,6 +253,12 @@
   padding: 1px 5px;
 }
 
+.concept-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .concept-card-layers {
   display: flex;
   gap: 4px;
@@ -264,5 +270,28 @@
   letter-spacing: 0.08em;
   color: var(--color-cyan-dim);
   border: 1px solid rgba(0, 150, 170, 0.25);
+  padding: 1px 4px;
+}
+
+.concept-card-badges {
+  display: flex;
+  gap: 4px;
+}
+
+.concept-card-bookmarked {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--color-amber);
+  border: 1px solid rgba(255, 184, 0, 0.3);
+  padding: 1px 4px;
+}
+
+.concept-card-completed {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
   padding: 1px 4px;
 }
