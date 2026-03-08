@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\RateLimiter;
 
 class AiController extends Controller
 {
+    private const MAX_SESSION_MESSAGES = 100;
+
     public function __construct(
         private readonly AiService $aiService,
     ) {}
 
     public function query(AiQueryRequest $request): JsonResponse
     {
-        $user = $request->user();
         $rateLimitResult = $this->checkRateLimit($request);
 
         if ($rateLimitResult !== null) {
@@ -69,12 +70,10 @@ class AiController extends Controller
         if ($user) {
             $key = "ai_query:user:{$user->id}";
             $maxAttempts = 20;
-            $decaySeconds = 3600;
         } else {
-            $sessionKey = $request->validated('session_key') ?? 'anonymous:'.$request->ip();
-            $key = "ai_query:guest:{$sessionKey}";
+            // Always rate limit by IP for guests to prevent bypass via rotating session keys
+            $key = "ai_query:guest_ip:{$request->ip()}";
             $maxAttempts = 5;
-            $decaySeconds = 3600;
         }
 
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
@@ -89,7 +88,7 @@ class AiController extends Controller
             ]);
         }
 
-        RateLimiter::hit($key, $decaySeconds);
+        RateLimiter::hit($key, 3600);
 
         return null;
     }
@@ -102,8 +101,7 @@ class AiController extends Controller
             $key = "ai_query:user:{$user->id}";
             $maxAttempts = 20;
         } else {
-            $sessionKey = $request->validated('session_key') ?? 'anonymous:'.$request->ip();
-            $key = "ai_query:guest:{$sessionKey}";
+            $key = "ai_query:guest_ip:{$request->ip()}";
             $maxAttempts = 5;
         }
 
@@ -128,6 +126,11 @@ class AiController extends Controller
         $messages[] = ['role' => 'user', 'content' => $request->validated('query')];
         $messages[] = ['role' => 'assistant', 'content' => $result['response']];
 
+        // Cap message history to prevent unbounded growth
+        if (count($messages) > self::MAX_SESSION_MESSAGES) {
+            $messages = array_slice($messages, -self::MAX_SESSION_MESSAGES);
+        }
+
         $conceptIds = array_unique(array_merge(
             $session->concept_ids ?? [],
             $result['concepts_used'],
@@ -135,7 +138,7 @@ class AiController extends Controller
 
         $session->update([
             'messages' => $messages,
-            'concept_ids' => $conceptIds,
+            'concept_ids' => array_slice($conceptIds, 0, 50),
         ]);
 
         return $session;

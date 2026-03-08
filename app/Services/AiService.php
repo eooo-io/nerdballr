@@ -138,6 +138,6 @@ PROMPT;
             throw new \RuntimeException('AI service unavailable');
         }
 
-        return $response->json('content.0.text', 'Unable to generate a response.');
+        return strip_tags($response->json('content.0.text', 'Unable to generate a response.'));
     }
 }

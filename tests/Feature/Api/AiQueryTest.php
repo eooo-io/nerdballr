@@ -15,7 +15,7 @@ beforeEach(function () {
         ]),
     ]);
 
-    RateLimiter::clear('ai_query:guest:anonymous:127.0.0.1');
+    RateLimiter::clear('ai_query:guest_ip:127.0.0.1');
 });
 
 it('returns AI response for valid query with concepts', function () {
@@ -169,7 +169,7 @@ it('appends to existing session', function () {
         'session_key' => $sessionKey,
     ]);
 
-    RateLimiter::clear("ai_query:guest:{$sessionKey}");
+    RateLimiter::clear('ai_query:guest_ip:127.0.0.1');
 
     $this->postJson('/api/ai/query', [
         'query' => 'Tell me more',
