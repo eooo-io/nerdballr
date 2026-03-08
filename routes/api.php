@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\ConceptController;
@@ -16,6 +17,10 @@ Route::get('/concepts/{slug}', [ConceptController::class, 'show']);
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+// AI endpoints (available to both guests and authenticated users)
+Route::post('/ai/query', [AiController::class, 'query']);
+Route::get('/ai/session/{key}', [AiController::class, 'session']);
 
 // Authenticated routes
 Route::middleware('auth:sanctum')->group(function () {
