@@ -1,8 +1,9 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useCompareStore } from '@/stores/compareStore';
 import { listConcepts } from '@/api/concepts';
 import { AnimatedField, PlaybackControls } from '@/components/field';
+import { AiSidebar } from '@/components/ai';
 import { usePlaybackStore } from '@/stores/playbackStore';
 import type { ConceptSummary } from '@/types';
 import './ComparePage.css';
@@ -28,6 +29,13 @@ export function ComparePage() {
       reset();
     };
   }, [clearSlots, reset]);
+
+  const conceptSlugs = useMemo(() => {
+    const slugs: string[] = [];
+    if (slotA) slugs.push(slotA.slug);
+    if (slotB) slugs.push(slotB.slug);
+    return slugs;
+  }, [slotA, slotB]);
 
   const handleSelectA = useCallback((slug: string) => {
     if (slug) {
@@ -110,6 +118,11 @@ export function ComparePage() {
         <div className="compare-playback">
           <PlaybackControls phases={slotA.phases} />
         </div>
+      )}
+
+      {/* AI Assistant */}
+      {conceptSlugs.length > 0 && (
+        <AiSidebar conceptSlugs={conceptSlugs} />
       )}
     </div>
   );

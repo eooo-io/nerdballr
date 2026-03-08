@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useConceptStore } from '@/stores/conceptStore';
 import { usePlaybackStore } from '@/stores/playbackStore';
 import { AnimatedField, PlaybackControls } from '@/components/field';
+import { AiSidebar } from '@/components/ai';
 import './LessonPage.css';
 
 export function LessonPage() {
@@ -109,6 +110,9 @@ export function LessonPage() {
           )}
         </aside>
       </div>
+
+      {/* AI Assistant */}
+      <AiSidebar conceptSlugs={[concept.slug]} />
     </div>
   );
 }
