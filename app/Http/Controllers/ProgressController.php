@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProgressRequest;
 use App\Http\Resources\UserProgressResource;
-use App\Models\UserProgress;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -21,7 +21,7 @@ class ProgressController extends Controller
         return UserProgressResource::collection($progress);
     }
 
-    public function store(StoreProgressRequest $request): UserProgressResource
+    public function store(StoreProgressRequest $request): JsonResponse
     {
         $progress = $request->user()
             ->progress()
@@ -32,6 +32,8 @@ class ProgressController extends Controller
 
         $progress->load('concept');
 
-        return new UserProgressResource($progress);
+        return (new UserProgressResource($progress))
+            ->response()
+            ->setStatusCode($progress->wasRecentlyCreated ? 201 : 200);
     }
 }

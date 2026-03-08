@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookmarkRequest;
 use App\Http\Resources\UserBookmarkResource;
-use App\Models\UserBookmark;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class BookmarkController extends Controller
 {
@@ -22,7 +22,7 @@ class BookmarkController extends Controller
         return UserBookmarkResource::collection($bookmarks);
     }
 
-    public function store(StoreBookmarkRequest $request): UserBookmarkResource
+    public function store(StoreBookmarkRequest $request): JsonResponse
     {
         $bookmark = $request->user()
             ->bookmarks()
@@ -33,7 +33,9 @@ class BookmarkController extends Controller
 
         $bookmark->load('concept');
 
-        return new UserBookmarkResource($bookmark);
+        return (new UserBookmarkResource($bookmark))
+            ->response()
+            ->setStatusCode($bookmark->wasRecentlyCreated ? 201 : 200);
     }
 
     public function destroy(Request $request, string $id): JsonResponse
