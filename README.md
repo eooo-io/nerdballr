@@ -71,14 +71,14 @@ Think of it as a **coach's tactical workstation** — retro-inspired (Amiga aest
 ├────────────────────┬────────────────────────────┤
 │                    │                            │
 │   Laravel 12 API   │     React 18 + Vite SPA    │
-│   ─────────────    │     ────────────────────    │
+│   ─────────────    │     ────────────────────   │
 │   Sanctum Auth     │     SVG Field Rendering    │
 │   Concept CRUD     │     Framer Motion Anim.    │
 │   AI Proxy (RAG)   │     Zustand State Mgmt     │
 │   Rate Limiting    │     TailwindCSS Styling    │
 │                    │                            │
 ├────────────────────┴────────────────────────────┤
-│  MariaDB 11  │  Redis 7  │  MinIO  │  Horizon  │
+│  MariaDB 11  │  Redis 7  │  MinIO  │  Horizon   │
 └─────────────────────────────────────────────────┘
 ```
 
