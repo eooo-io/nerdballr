@@ -109,6 +109,7 @@ export function HomePage() {
           <Link to="/compare" className="home-nav-link">Compare</Link>
           <Link to="/geometry-lab" className="home-nav-link">Geometry Lab</Link>
           <Link to="/primer" className="home-nav-link home-nav-primer">Football 101</Link>
+          <Link to="/glossary" className="home-nav-link">Glossary</Link>
           {user ? (
             <>
               <span className="home-user">{user.name}</span>

@@ -7,6 +7,7 @@ import { LessonPage } from '@/features/lesson/LessonPage';
 import { ComparePage } from '@/features/compare/ComparePage';
 import { GeometryLabPage } from '@/features/geometry-lab/GeometryLabPage';
 import { PrimerPage } from '@/components/PrimerPage';
+import { GlossaryPage } from '@/components/GlossaryPage';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
@@ -48,6 +49,7 @@ export function App() {
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/geometry-lab" element={<GeometryLabPage />} />
             <Route path="/primer" element={<PrimerPage />} />
+            <Route path="/glossary" element={<GlossaryPage />} />
           </Route>
         </Routes>
       </ErrorBoundary>

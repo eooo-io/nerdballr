@@ -1,0 +1,307 @@
+/* ═══════════════════════════════════════════════════════════════
+   Glossary — Football Terminology Reference
+═══════════════════════════════════════════════════════════════ */
+
+.glossary-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ───────────────────────────────────────────────── */
+
+.glossary-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(26, 45, 77, 0.6);
+  background: rgba(10, 18, 36, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.glossary-back {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-cyan-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.glossary-back:hover {
+  color: var(--color-cyan);
+}
+
+.glossary-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.glossary-subtitle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+/* ─── Filters ──────────────────────────────────────────────── */
+
+.glossary-filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 24px;
+  border-bottom: 1px solid rgba(26, 45, 77, 0.4);
+}
+
+.glossary-search {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--color-text-primary);
+  background: rgba(10, 18, 36, 0.8);
+  border: 1px solid rgba(26, 45, 77, 0.8);
+  padding: 8px 14px;
+  width: 260px;
+  transition: border-color 0.15s;
+}
+
+.glossary-search::placeholder {
+  color: rgba(148, 163, 184, 0.4);
+}
+
+.glossary-search:focus {
+  outline: none;
+  border-color: var(--color-cyan);
+}
+
+.glossary-categories {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.glossary-cat-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid rgba(26, 45, 77, 0.6);
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.glossary-cat-btn.active {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.glossary-cat-btn:hover:not(.active) {
+  color: var(--color-text-primary);
+  border-color: rgba(156, 163, 184, 0.35);
+}
+
+/* ─── Content ──────────────────────────────────────────────── */
+
+.glossary-content {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 24px;
+}
+
+.glossary-loading,
+.glossary-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+/* ─── Term List ────────────────────────────────────────────── */
+
+.glossary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.glossary-term {
+  border: 1px solid rgba(26, 45, 77, 0.4);
+  background: rgba(10, 18, 36, 0.3);
+  transition: all 0.15s;
+}
+
+.glossary-term.expanded {
+  border-color: rgba(26, 45, 77, 0.8);
+  background: rgba(10, 18, 36, 0.6);
+}
+
+.glossary-term-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.glossary-term-header:hover {
+  background: rgba(0, 229, 255, 0.02);
+}
+
+.glossary-term-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.glossary-term-category {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.glossary-term-chevron {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  width: 16px;
+  text-align: center;
+}
+
+/* ─── Term Body ────────────────────────────────────────────── */
+
+.glossary-term-body {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.glossary-term-definition {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ─── Related Links ────────────────────────────────────────── */
+
+.glossary-related {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.glossary-related-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+.glossary-related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.glossary-related-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--color-cyan);
+  text-decoration: none;
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  padding: 2px 8px;
+  text-transform: capitalize;
+  transition: all 0.15s;
+}
+
+.glossary-related-link:hover {
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.glossary-related-term {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--color-amber);
+  background: transparent;
+  border: 1px solid rgba(255, 184, 0, 0.25);
+  padding: 2px 8px;
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: all 0.15s;
+}
+
+.glossary-related-term:hover {
+  border-color: var(--color-amber);
+  background: rgba(255, 184, 0, 0.06);
+}
+
+.glossary-related-term-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  border: 1px solid rgba(26, 45, 77, 0.4);
+  padding: 2px 8px;
+  text-transform: capitalize;
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .glossary-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .glossary-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .glossary-search {
+    width: 100%;
+  }
+
+  .glossary-content {
+    padding: 16px;
+  }
+
+  .glossary-related {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
