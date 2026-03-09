@@ -15,6 +15,10 @@ import './MatchupPage.css';
 const OFFENSE_CATEGORIES = ['formation-offense', 'route-concept'];
 const DEFENSE_CATEGORIES = ['formation-defense', 'coverage', 'blitz'];
 
+// Push each side away from the LOS so they don't overlap
+const LOS = 600;
+const SPREAD = 60; // 6 yards of extra separation per side
+
 function resolvePositions(phases: Phase[], index: number): Map<string, Vector2D> {
   const positions = new Map<string, Vector2D>();
   for (let i = 0; i <= index; i++) {
@@ -194,112 +198,111 @@ export function MatchupPage() {
 
             {/* Side labels */}
             {offense && (
-              <text x={530} y={16} fill="var(--color-cyan)" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.5" fontWeight="bold">
+              <text x={LOS - SPREAD - 70} y={16} fill="var(--color-cyan)" fontSize="9" fontFamily="monospace" textAnchor="middle" opacity="0.5" fontWeight="bold">
                 {offense.label.toUpperCase()} →
               </text>
             )}
             {defense && (
-              <text x={680} y={16} fill="rgba(239,68,68,0.5)" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+              <text x={LOS + SPREAD + 70} y={16} fill="rgba(239,68,68,0.5)" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
                 ← {defense.label.toUpperCase()}
               </text>
             )}
 
-            {/* Offense overlays */}
-            {offPhase?.overlays?.filter((o) => o.type === 'zone').map((o) => (
-              <ZoneOverlayComponent key={`off-${o.id}`} overlay={o} />
-            ))}
+            {/* ── Offense group (shifted left) ── */}
+            <g transform={`translate(${-SPREAD}, 0)`}>
+              {offPhase?.overlays?.filter((o) => o.type === 'zone').map((o) => (
+                <ZoneOverlayComponent key={`off-${o.id}`} overlay={o} />
+              ))}
 
-            {/* Defense overlays */}
-            {defPhase?.overlays?.filter((o) => o.type === 'zone').map((o) => (
-              <ZoneOverlayComponent key={`def-${o.id}`} overlay={o} />
-            ))}
+              {offPhase?.players.map((ps) =>
+                ps.paths?.map((path, pi) => (
+                  <MotionPathRenderer
+                    key={`off-${ps.playerId}-path-${pi}`}
+                    path={path}
+                    animated={currentPhase > 0}
+                  />
+                )),
+              )}
 
-            {/* Offense motion paths */}
-            {offPhase?.players.map((ps) =>
-              ps.paths?.map((path, pi) => (
-                <MotionPathRenderer
-                  key={`off-${ps.playerId}-path-${pi}`}
-                  path={path}
-                  animated={currentPhase > 0}
-                />
-              )),
-            )}
-
-            {/* Defense motion paths */}
-            {defPhase?.players.map((ps) =>
-              ps.paths?.map((path, pi) => (
-                <MotionPathRenderer
-                  key={`def-${ps.playerId}-path-${pi}`}
-                  path={path}
-                  animated={currentPhase > 0}
-                />
-              )),
-            )}
-
-            {/* Ball */}
-            {offPhase?.ball && (
-              <motion.g
-                animate={{ x: offPhase.ball.position.x, y: offPhase.ball.position.y }}
-                initial={false}
-                transition={{ duration: transitionDuration, ease: 'easeInOut' }}
-              >
-                <BallToken ball={{ ...offPhase.ball, position: { x: 0, y: 0 } }} />
-              </motion.g>
-            )}
-
-            {/* Offense tokens */}
-            {Array.from(offPositions.entries()).map(([playerId, pos]) => {
-              const player = offRosterMap.get(playerId);
-              if (!player) return null;
-              const ps = offPhase?.players.find((p) => p.playerId === playerId);
-              return (
+              {offPhase?.ball && (
                 <motion.g
-                  key={`off-${playerId}`}
-                  animate={{ x: pos.x, y: pos.y }}
+                  animate={{ x: offPhase.ball.position.x, y: offPhase.ball.position.y }}
                   initial={false}
                   transition={{ duration: transitionDuration, ease: 'easeInOut' }}
                 >
-                  <PlayerToken
-                    role={player.role}
-                    position={{ x: 0, y: 0 }}
-                    label={player.label || player.id}
-                    highlighted={ps?.highlighted ?? false}
-                    opacity={ps?.opacity ?? 1}
-                  />
+                  <BallToken ball={{ ...offPhase.ball, position: { x: 0, y: 0 } }} />
                 </motion.g>
-              );
-            })}
+              )}
 
-            {/* Defense tokens */}
-            {Array.from(defPositions.entries()).map(([playerId, pos]) => {
-              const player = defRosterMap.get(playerId);
-              if (!player) return null;
-              const ps = defPhase?.players.find((p) => p.playerId === playerId);
-              return (
-                <motion.g
-                  key={`def-${playerId}`}
-                  animate={{ x: pos.x, y: pos.y }}
-                  initial={false}
-                  transition={{ duration: transitionDuration, ease: 'easeInOut' }}
-                >
-                  <PlayerToken
-                    role={player.role}
-                    position={{ x: 0, y: 0 }}
-                    label={player.label || player.id}
-                    highlighted={ps?.highlighted ?? false}
-                    opacity={ps?.opacity ?? 1}
+              {Array.from(offPositions.entries()).map(([playerId, pos]) => {
+                const player = offRosterMap.get(playerId);
+                if (!player) return null;
+                const ps = offPhase?.players.find((p) => p.playerId === playerId);
+                return (
+                  <motion.g
+                    key={`off-${playerId}`}
+                    animate={{ x: pos.x, y: pos.y }}
+                    initial={false}
+                    transition={{ duration: transitionDuration, ease: 'easeInOut' }}
+                  >
+                    <PlayerToken
+                      role={player.role}
+                      position={{ x: 0, y: 0 }}
+                      label={player.label || player.id}
+                      highlighted={ps?.highlighted ?? false}
+                      opacity={ps?.opacity ?? 1}
+                    />
+                  </motion.g>
+                );
+              })}
+
+              {offPhase?.annotations?.map((a) => (
+                <AnnotationComponent key={`off-${a.id}`} annotation={a} />
+              ))}
+            </g>
+
+            {/* ── Defense group (shifted right) ── */}
+            <g transform={`translate(${SPREAD}, 0)`}>
+              {defPhase?.overlays?.filter((o) => o.type === 'zone').map((o) => (
+                <ZoneOverlayComponent key={`def-${o.id}`} overlay={o} />
+              ))}
+
+              {defPhase?.players.map((ps) =>
+                ps.paths?.map((path, pi) => (
+                  <MotionPathRenderer
+                    key={`def-${ps.playerId}-path-${pi}`}
+                    path={path}
+                    animated={currentPhase > 0}
                   />
-                </motion.g>
-              );
-            })}
+                )),
+              )}
 
-            {/* Annotations from both */}
-            {offPhase?.annotations?.map((a) => (
-              <AnnotationComponent key={`off-${a.id}`} annotation={a} />
-            ))}
-            {defPhase?.annotations?.map((a) => (
-              <AnnotationComponent key={`def-${a.id}`} annotation={a} />
-            ))}
+              {Array.from(defPositions.entries()).map(([playerId, pos]) => {
+                const player = defRosterMap.get(playerId);
+                if (!player) return null;
+                const ps = defPhase?.players.find((p) => p.playerId === playerId);
+                return (
+                  <motion.g
+                    key={`def-${playerId}`}
+                    animate={{ x: pos.x, y: pos.y }}
+                    initial={false}
+                    transition={{ duration: transitionDuration, ease: 'easeInOut' }}
+                  >
+                    <PlayerToken
+                      role={player.role}
+                      position={{ x: 0, y: 0 }}
+                      label={player.label || player.id}
+                      highlighted={ps?.highlighted ?? false}
+                      opacity={ps?.opacity ?? 1}
+                    />
+                  </motion.g>
+                );
+              })}
+
+              {defPhase?.annotations?.map((a) => (
+                <AnnotationComponent key={`def-${a.id}`} annotation={a} />
+              ))}
+            </g>
           </FootballField>
         )}
       </div>
