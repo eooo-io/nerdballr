@@ -188,7 +188,7 @@
 .lesson-explanation,
 .lesson-phase-desc {
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
   color: var(--color-text-secondary);
   margin: 0;
@@ -277,7 +277,7 @@
 
 .lesson-error-text {
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-secondary);
   margin: 0;
 }

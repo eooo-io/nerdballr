@@ -148,7 +148,7 @@
 
 .home-primer-cta-text {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-text-secondary);
   flex: 1;
 }
@@ -378,7 +378,7 @@
 
 .concept-card-desc {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   color: var(--color-text-secondary);
   margin: 0;

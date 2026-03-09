@@ -81,7 +81,7 @@
 
 .compare-vs {
   font-family: 'Orbitron', monospace;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--color-amber);
   flex-shrink: 0;
