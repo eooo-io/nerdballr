@@ -1,0 +1,62 @@
+/* ═══════════════════════════════════════════════════════════════
+   Token Legend — Reusable player shape/color reference
+═══════════════════════════════════════════════════════════════ */
+
+.token-legend {
+  display: flex;
+  gap: 32px;
+}
+
+.token-legend-compact {
+  gap: 20px;
+}
+
+.token-legend-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.token-legend-group-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0 0 4px 0;
+}
+
+.token-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.token-legend-role {
+  font-family: 'Orbitron', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-primary);
+  width: 24px;
+}
+
+.token-legend-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.token-legend-shape {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(148, 163, 184, 0.4);
+}
+
+.token-legend-compact .token-legend-shape {
+  display: none;
+}
+
+.token-legend-compact .token-legend-name {
+  font-size: 10px;
+}
