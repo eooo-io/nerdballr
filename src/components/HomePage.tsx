@@ -108,6 +108,7 @@ export function HomePage() {
         <nav className="home-nav">
           <Link to="/compare" className="home-nav-link">Compare</Link>
           <Link to="/geometry-lab" className="home-nav-link">Geometry Lab</Link>
+          <Link to="/primer" className="home-nav-link home-nav-primer">Football 101</Link>
           {user ? (
             <>
               <span className="home-user">{user.name}</span>
@@ -157,6 +158,15 @@ export function HomePage() {
             A–Z
           </button>
         </div>
+      </div>
+
+      {/* Primer CTA */}
+      <div className="home-primer-cta">
+        <Link to="/primer" className="home-primer-cta-inner">
+          <span className="home-primer-cta-label">New to football?</span>
+          <span className="home-primer-cta-text">Start with Football 101 — learn the field, positions, and how to read diagrams</span>
+          <span className="home-primer-cta-arrow">&rarr;</span>
+        </Link>
       </div>
 
       {/* Concept grid */}
