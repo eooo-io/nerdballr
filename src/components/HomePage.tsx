@@ -108,6 +108,7 @@ export function HomePage() {
         <nav className="home-nav">
           <Link to="/compare" className="home-nav-link">Compare</Link>
           <Link to="/geometry-lab" className="home-nav-link">Geometry Lab</Link>
+          <Link to="/matchup" className="home-nav-link">Matchup</Link>
           <Link to="/primer" className="home-nav-link home-nav-primer">Football 101</Link>
           <Link to="/glossary" className="home-nav-link">Glossary</Link>
           {user ? (

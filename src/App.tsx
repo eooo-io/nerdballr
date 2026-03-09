@@ -8,6 +8,7 @@ import { ComparePage } from '@/features/compare/ComparePage';
 import { GeometryLabPage } from '@/features/geometry-lab/GeometryLabPage';
 import { PrimerPage } from '@/components/PrimerPage';
 import { GlossaryPage } from '@/components/GlossaryPage';
+import { MatchupPage } from '@/features/matchup/MatchupPage';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
@@ -50,6 +51,7 @@ export function App() {
             <Route path="/geometry-lab" element={<GeometryLabPage />} />
             <Route path="/primer" element={<PrimerPage />} />
             <Route path="/glossary" element={<GlossaryPage />} />
+            <Route path="/matchup" element={<MatchupPage />} />
           </Route>
         </Routes>
       </ErrorBoundary>
