@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
+  <!-- Shield -->
+  <polygon points="30,20 55,8 80,20 80,52 55,64 30,52" fill="rgba(0,229,255,0.09)" stroke="#00E5FF" stroke-width="2"/>
+  <!-- Inner diamond -->
+  <rect x="46" y="27" width="18" height="18" rx="1" transform="rotate(45 55 36)" fill="none" stroke="#FFB800" stroke-width="2"/>
+  <!-- NerdBall -->
+  <text x="96" y="48" font-family="'Orbitron', 'Segoe UI', monospace" font-size="36" font-weight="900" fill="#E6EDF3" letter-spacing="-0.02em">NerdBall<tspan fill="#FFB800">r</tspan></text>
+  <!-- Tagline -->
+  <text x="96" y="68" font-family="'Share Tech Mono', 'Courier New', monospace" font-size="10" fill="rgba(0,229,255,0.6)" letter-spacing="0.18em" text-transform="uppercase">FOOTBALL FIELD INTELLIGENCE SYSTEM</text>
+</svg>

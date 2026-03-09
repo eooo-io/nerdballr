@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/FFIS-Football_Field_Intelligence_System-0D1117?style=for-the-badge&labelColor=1D4ED8" alt="FFIS">
+  <img src="public/logo.svg" alt="NerdBallr — Football Field Intelligence System" width="400">
 </p>
-
-<h1 align="center">NerdBallr</h1>
 
 <p align="center">
   An interactive tactical visualization simulator for understanding<br>
