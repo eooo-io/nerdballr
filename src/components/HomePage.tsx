@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import { listConcepts } from '@/api/concepts';
 import { logout } from '@/api/auth';
-import type { ConceptSummary, ConceptCategory } from '@/types';
+import type { ConceptSummary, ConceptCategory, Difficulty } from '@/types';
 import './HomePage.css';
 
 const CATEGORIES: { value: ConceptCategory | ''; label: string }[] = [
@@ -23,6 +23,14 @@ const DIFFICULTY_COLORS: Record<string, string> = {
   advanced: '#ef4444',
 };
 
+const DIFFICULTY_ORDER: Difficulty[] = ['beginner', 'intermediate', 'advanced'];
+
+const DIFFICULTY_LABELS: Record<Difficulty, string> = {
+  beginner: 'Beginner',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
 export function HomePage() {
   const user = useAuthStore((s) => s.user);
   const setUser = useAuthStore((s) => s.setUser);
@@ -32,6 +40,8 @@ export function HomePage() {
   const [category, setCategory] = useState<ConceptCategory | ''>('');
   const bookmarkedSlugs = useUserStore((s) => s.bookmarkedSlugs);
   const completedSlugs = useUserStore((s) => s.completedSlugs);
+  const sortPreference = useUserStore((s) => s.sortPreference);
+  const setSortPreference = useUserStore((s) => s.setSortPreference);
   const clearLocal = useUserStore((s) => s.clearLocal);
   const navigate = useNavigate();
 
@@ -45,11 +55,11 @@ export function HomePage() {
   }, [setUser, clearLocal, navigate]);
 
   useEffect(() => {
-    listConcepts()
+    listConcepts({ sort: sortPreference })
       .then((res) => setConcepts(res.data))
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, []);
+  }, [sortPreference]);
 
   const filtered = useMemo(() => {
     let list = concepts;
@@ -67,6 +77,23 @@ export function HomePage() {
     }
     return list;
   }, [concepts, category, search]);
+
+  // Group by difficulty when in difficulty sort mode
+  const groupedByDifficulty = useMemo(() => {
+    if (sortPreference !== 'difficulty') return null;
+
+    const groups: Record<Difficulty, ConceptSummary[]> = {
+      beginner: [],
+      intermediate: [],
+      advanced: [],
+    };
+
+    for (const c of filtered) {
+      groups[c.difficulty].push(c);
+    }
+
+    return groups;
+  }, [filtered, sortPreference]);
 
   return (
     <div className="home-container">
@@ -114,6 +141,22 @@ export function HomePage() {
             </button>
           ))}
         </div>
+        <div className="home-sort-toggle">
+          <button
+            className={`home-sort-btn ${sortPreference === 'difficulty' ? 'active' : ''}`}
+            onClick={() => setSortPreference('difficulty')}
+            title="Sort by difficulty"
+          >
+            Level
+          </button>
+          <button
+            className={`home-sort-btn ${sortPreference === 'alpha' ? 'active' : ''}`}
+            onClick={() => setSortPreference('alpha')}
+            title="Sort alphabetically"
+          >
+            A–Z
+          </button>
+        </div>
       </div>
 
       {/* Concept grid */}
@@ -124,48 +167,99 @@ export function HomePage() {
         {!loading && filtered.length === 0 && (
           <div className="home-empty">No concepts found.</div>
         )}
-        {!loading && filtered.length > 0 && (
-          <div className="home-grid">
-            {filtered.map((c) => (
-              <Link key={c.slug} to={`/lesson/${c.slug}`} className="concept-card">
-                <div className="concept-card-header">
-                  <span className="concept-card-category">
-                    {c.category.replace('-', ' ')}
-                  </span>
-                  <span
-                    className="concept-card-difficulty"
-                    style={{ color: DIFFICULTY_COLORS[c.difficulty] }}
-                  >
-                    {c.difficulty}
-                  </span>
-                </div>
-                <h3 className="concept-card-title">{c.label}</h3>
-                <p className="concept-card-desc">{c.description}</p>
-                <div className="concept-card-tags">
-                  {c.tags.slice(0, 4).map((t) => (
-                    <span key={t} className="concept-card-tag">{t}</span>
-                  ))}
-                </div>
-                <div className="concept-card-footer">
-                  <div className="concept-card-layers">
-                    {c.layers.map((l) => (
-                      <span key={l} className="concept-card-layer">L{l}</span>
+        {!loading && filtered.length > 0 && sortPreference === 'difficulty' && groupedByDifficulty && (
+          <div className="home-grouped">
+            {DIFFICULTY_ORDER.map((diff) => {
+              const group = groupedByDifficulty[diff];
+              if (group.length === 0) return null;
+              return (
+                <section key={diff} className="home-difficulty-section">
+                  <div className="home-section-header">
+                    <span
+                      className="home-section-title"
+                      style={{ color: DIFFICULTY_COLORS[diff] }}
+                    >
+                      {DIFFICULTY_LABELS[diff]}
+                    </span>
+                    <span className="home-section-count">{group.length}</span>
+                    <span className="home-section-line" style={{ borderColor: DIFFICULTY_COLORS[diff] }} />
+                  </div>
+                  <div className="home-grid">
+                    {group.map((c) => (
+                      <ConceptCard
+                        key={c.slug}
+                        concept={c}
+                        isBookmarked={bookmarkedSlugs.includes(c.slug)}
+                        isCompleted={completedSlugs.includes(c.slug)}
+                      />
                     ))}
                   </div>
-                  <div className="concept-card-badges">
-                    {bookmarkedSlugs.includes(c.slug) && (
-                      <span className="concept-card-bookmarked">BM</span>
-                    )}
-                    {completedSlugs.includes(c.slug) && (
-                      <span className="concept-card-completed">OK</span>
-                    )}
-                  </div>
-                </div>
-              </Link>
+                </section>
+              );
+            })}
+          </div>
+        )}
+        {!loading && filtered.length > 0 && sortPreference === 'alpha' && (
+          <div className="home-grid">
+            {filtered.map((c) => (
+              <ConceptCard
+                key={c.slug}
+                concept={c}
+                isBookmarked={bookmarkedSlugs.includes(c.slug)}
+                isCompleted={completedSlugs.includes(c.slug)}
+              />
             ))}
           </div>
         )}
       </main>
     </div>
+  );
+}
+
+function ConceptCard({
+  concept: c,
+  isBookmarked,
+  isCompleted,
+}: {
+  concept: ConceptSummary;
+  isBookmarked: boolean;
+  isCompleted: boolean;
+}) {
+  return (
+    <Link to={`/lesson/${c.slug}`} className="concept-card">
+      <div className="concept-card-header">
+        <span className="concept-card-category">
+          {c.category.replace('-', ' ')}
+        </span>
+        <span
+          className="concept-card-difficulty"
+          style={{ color: DIFFICULTY_COLORS[c.difficulty] }}
+        >
+          {c.difficulty}
+        </span>
+      </div>
+      <h3 className="concept-card-title">{c.label}</h3>
+      <p className="concept-card-desc">{c.description}</p>
+      <div className="concept-card-tags">
+        {c.tags.slice(0, 4).map((t) => (
+          <span key={t} className="concept-card-tag">{t}</span>
+        ))}
+      </div>
+      <div className="concept-card-footer">
+        <div className="concept-card-layers">
+          {c.layers.map((l) => (
+            <span key={l} className="concept-card-layer">L{l}</span>
+          ))}
+        </div>
+        <div className="concept-card-badges">
+          {isBookmarked && (
+            <span className="concept-card-bookmarked">BM</span>
+          )}
+          {isCompleted && (
+            <span className="concept-card-completed">OK</span>
+          )}
+        </div>
+      </div>
+    </Link>
   );
 }

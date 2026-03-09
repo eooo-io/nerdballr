@@ -1,11 +1,14 @@
 import client from './client';
 import type { Concept, ConceptSummary, PaginatedResponse, ConceptCategory } from '@/types';
 
+export type ConceptSortMode = 'difficulty' | 'alpha';
+
 export interface ConceptListParams {
   category?: ConceptCategory;
   tags?: string[];
   q?: string;
   page?: number;
+  sort?: ConceptSortMode;
 }
 
 export async function listConcepts(params: ConceptListParams = {}): Promise<PaginatedResponse<ConceptSummary>> {
@@ -14,6 +17,7 @@ export async function listConcepts(params: ConceptListParams = {}): Promise<Pagi
   if (params.tags?.length) query.tags = params.tags.join(',');
   if (params.q) query.q = params.q;
   if (params.page) query.page = String(params.page);
+  if (params.sort) query.sort = params.sort;
 
   const { data } = await client.get<PaginatedResponse<ConceptSummary>>('/concepts', { params: query });
   return data;

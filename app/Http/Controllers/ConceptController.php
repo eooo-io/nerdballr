@@ -22,6 +22,7 @@ class ConceptController extends Controller
             'category' => ['sometimes', 'string', 'in:'.implode(',', self::VALID_CATEGORIES)],
             'tags' => ['sometimes', 'string', 'max:200'],
             'q' => ['sometimes', 'string', 'max:100'],
+            'sort' => ['sometimes', 'string', 'in:difficulty,alpha'],
         ]);
 
         $query = Concept::query();
@@ -45,9 +46,15 @@ class ConceptController extends Controller
             });
         }
 
-        return ConceptSummaryResource::collection(
-            $query->orderBy('label')->paginate(25)
-        );
+        if ($request->input('sort') === 'alpha') {
+            $query->orderBy('label');
+        } else {
+            $query->orderByRaw("FIELD(difficulty, 'beginner', 'intermediate', 'advanced')")
+                ->orderBy('category')
+                ->orderBy('label');
+        }
+
+        return ConceptSummaryResource::collection($query->paginate(25));
     }
 
     public function show(string $slug): ConceptFullResource

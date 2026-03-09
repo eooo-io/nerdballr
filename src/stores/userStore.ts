@@ -10,10 +10,13 @@ import {
 } from '@/api/user';
 import type { Bookmark } from '@/api/user';
 
+type SortPreference = 'difficulty' | 'alpha';
+
 interface UserState {
   // Local state (persisted in localStorage for guests)
   bookmarkedSlugs: string[];
   completedSlugs: string[];
+  sortPreference: SortPreference;
 
   // Server bookmark IDs (for authenticated delete)
   bookmarkMap: Record<string, number>; // slug → bookmark id
@@ -26,6 +29,7 @@ interface UserState {
   markConceptComplete: (slug: string, authenticated: boolean) => Promise<void>;
   isBookmarked: (slug: string) => boolean;
   isCompleted: (slug: string) => boolean;
+  setSortPreference: (pref: SortPreference) => void;
   syncFromServer: () => Promise<void>;
   migrateGuestState: () => Promise<void>;
   clearLocal: () => void;
@@ -36,6 +40,7 @@ export const useUserStore = create<UserState>()(
     (set, get) => ({
       bookmarkedSlugs: [],
       completedSlugs: [],
+      sortPreference: 'difficulty' as SortPreference,
       bookmarkMap: {},
       isSyncing: false,
 
@@ -87,6 +92,7 @@ export const useUserStore = create<UserState>()(
 
       isBookmarked: (slug) => get().bookmarkedSlugs.includes(slug),
       isCompleted: (slug) => get().completedSlugs.includes(slug),
+      setSortPreference: (pref) => set({ sortPreference: pref }),
 
       syncFromServer: async () => {
         set({ isSyncing: true });
@@ -137,6 +143,7 @@ export const useUserStore = create<UserState>()(
       partialize: (state) => ({
         bookmarkedSlugs: state.bookmarkedSlugs,
         completedSlugs: state.completedSlugs,
+        sortPreference: state.sortPreference,
       }),
     },
   ),

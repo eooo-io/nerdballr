@@ -162,6 +162,85 @@
   border-color: rgba(156, 163, 175, 0.35);
 }
 
+/* ─── Sort Toggle ─────────────────────────────────────────── */
+
+.home-sort-toggle {
+  display: flex;
+  gap: 0;
+  margin-left: auto;
+}
+
+.home-sort-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid rgba(26, 45, 77, 0.6);
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.home-sort-btn:first-child {
+  border-right: none;
+}
+
+.home-sort-btn.active {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  background: rgba(0, 229, 255, 0.06);
+}
+
+.home-sort-btn:hover:not(.active) {
+  color: var(--color-text-primary);
+  border-color: rgba(156, 163, 175, 0.35);
+}
+
+/* ─── Difficulty Sections ─────────────────────────────────── */
+
+.home-grouped {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.home-difficulty-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.home-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.home-section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.home-section-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.home-section-line {
+  flex: 1;
+  border-top: 1px solid;
+  opacity: 0.2;
+}
+
 /* ─── Grid ─────────────────────────────────────────────────── */
 
 .home-grid-container {
