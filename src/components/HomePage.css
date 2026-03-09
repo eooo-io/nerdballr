@@ -41,7 +41,7 @@
 
 .home-subtitle {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-cyan-dim);
@@ -55,7 +55,7 @@
 
 .home-nav-link {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-cyan-dim);
@@ -197,7 +197,7 @@
 
 .home-cat-btn {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
@@ -229,7 +229,7 @@
 
 .home-sort-btn {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
@@ -240,8 +240,8 @@
   transition: all 0.15s;
 }
 
-.home-sort-btn:first-child {
-  border-right: none;
+.home-sort-btn + .home-sort-btn {
+  border-left: none;
 }
 
 .home-sort-btn.active {
@@ -277,7 +277,7 @@
 
 .home-section-title {
   font-family: 'Orbitron', monospace;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -286,7 +286,7 @@
 
 .home-section-count {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--color-text-secondary);
   opacity: 0.5;
   white-space: nowrap;
@@ -353,7 +353,7 @@
 
 .concept-card-category {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-amber);
@@ -361,7 +361,7 @@
 
 .concept-card-difficulty {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
