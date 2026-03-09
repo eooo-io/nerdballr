@@ -4,6 +4,7 @@ use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\ConceptController;
+use App\Http\Controllers\GlossaryController;
 use App\Http\Controllers\GuestMigrationController;
 use App\Http\Controllers\ProgressController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,10 @@ Route::get('/concepts/{slug}', [ConceptController::class, 'show']);
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+// Public glossary
+Route::get('/glossary', [GlossaryController::class, 'index']);
+Route::get('/glossary/{slug}', [GlossaryController::class, 'show']);
 
 // AI endpoints (available to both guests and authenticated users)
 Route::post('/ai/query', [AiController::class, 'query']);

@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call(ConceptSeeder::class);
+        $this->call(GlossaryTermSeeder::class);
     }
 }
