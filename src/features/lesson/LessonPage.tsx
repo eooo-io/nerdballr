@@ -6,6 +6,7 @@ import { useUserStore } from '@/stores/userStore';
 import { useAuthStore } from '@/stores/authStore';
 import { AnimatedField, PlaybackControls } from '@/components/field';
 import { AiSidebar } from '@/components/ai';
+import { CounterPanel } from './CounterPanel';
 import './LessonPage.css';
 
 export function LessonPage() {
@@ -107,16 +108,7 @@ export function LessonPage() {
             </section>
           )}
 
-          {concept.counters && concept.counters.length > 0 && (
-            <section className="lesson-section">
-              <h2 className="lesson-section-title">Counters</h2>
-              <div className="lesson-links">
-                {concept.counters.map((c) => (
-                  <Link key={c} to={`/lesson/${c}`} className="lesson-link">{c}</Link>
-                ))}
-              </div>
-            </section>
-          )}
+          <CounterPanel slug={concept.slug} />
 
           {concept.related && concept.related.length > 0 && (
             <section className="lesson-section">

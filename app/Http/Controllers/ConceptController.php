@@ -63,4 +63,24 @@ class ConceptController extends Controller
 
         return new ConceptFullResource($concept);
     }
+
+    public function counters(string $slug): \Illuminate\Http\JsonResponse
+    {
+        $concept = Concept::where('slug', $slug)->firstOrFail();
+
+        $counterSlugs = $concept->counters ?? [];
+        $counterConcepts = Concept::whereIn('slug', $counterSlugs)->get();
+
+        // Reverse lookup: concepts that list this slug in their counters array
+        $counteredBy = Concept::whereJsonContains('counters', $slug)
+            ->where('slug', '!=', $slug)
+            ->get();
+
+        return response()->json([
+            'data' => [
+                'counters' => ConceptSummaryResource::collection($counterConcepts),
+                'countered_by' => ConceptSummaryResource::collection($counteredBy),
+            ],
+        ]);
+    }
 }
