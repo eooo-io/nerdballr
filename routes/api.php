@@ -13,6 +13,7 @@ Route::get('/ping', fn () => response()->json(['status' => 'ok']));
 
 // Public concept browsing
 Route::get('/concepts', [ConceptController::class, 'index']);
+Route::get('/concepts/{slug}/counters', [ConceptController::class, 'counters']);
 Route::get('/concepts/{slug}', [ConceptController::class, 'show']);
 
 // Authentication

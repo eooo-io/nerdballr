@@ -27,3 +27,13 @@ export async function getConcept(slug: string): Promise<Concept> {
   const { data } = await client.get<{ data: Concept }>(`/concepts/${slug}`);
   return data.data;
 }
+
+export interface ConceptCounters {
+  counters: ConceptSummary[];
+  countered_by: ConceptSummary[];
+}
+
+export async function getConceptCounters(slug: string): Promise<ConceptCounters> {
+  const { data } = await client.get<{ data: ConceptCounters }>(`/concepts/${slug}/counters`);
+  return data.data;
+}
