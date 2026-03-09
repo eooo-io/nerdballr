@@ -2,24 +2,29 @@
 
 ## Current State
 
-Fresh Laravel 12 scaffold. Docker Compose infrastructure is fully configured (nginx, php-fpm, mariadb, redis, minio, horizon, mailpit). No application code, models, API routes, or frontend exist yet. Default Laravel migrations only (users, cache, jobs).
+**v1.0.0 released.** All 13 original phases (0–12) are complete. Laravel 12 backend with 20 seeded concepts, React 19 + TypeScript SPA, Sanctum auth, AI assistant, full animation engine. 129 Pest tests passing. Phases 13–16 below are the v1.1 learning experience enhancements.
 
 ---
 
 ## Available Agents
 
-| Agent | Relevant? | Role in FFIS |
-|-------|-----------|--------------|
-| **database-architect** | Yes | Migrations, Eloquent models, indexes, JSON column schema |
-| **security-reviewer** | Yes | Sanctum SPA auth, API input validation, rate limiting, OWASP |
-| **test-engineer** | Yes | Pest tests for models, API endpoints, AI service |
-| **code-reviewer** | Yes | Review after each phase for quality, SOLID, DRY |
-| **performance-auditor** | Yes | Query optimization, Redis caching, index audit |
-| **livewire-developer** | No | FFIS uses React SPA, not Livewire/TALL stack |
-| **filament-specialist** | No | No admin panel in Phase 1 |
-| **module-scaffolder** | No | No nwidart modules needed |
+All agents are FFIS-specific. Definitions live in `.claude/agents/`.
 
-> **Note:** The agent definitions contain Immotege-specific instructions (German fintech, Europace, 186+ models). Agents will need to be directed to apply their *general* Laravel expertise to FFIS context, ignoring Immotege-specific conventions.
+| Agent | Role in FFIS |
+|-------|--------------|
+| **database-architect** | Migrations, Eloquent models, indexes, JSON column schema, MariaDB queries |
+| **test-engineer** | Pest 4 tests for API endpoints, models, AI service mocking, auth flows |
+| **security-reviewer** | Sanctum SPA auth, API input validation, rate limiting, OWASP, AI proxy security |
+| **code-reviewer** | Review diffs for quality, SOLID, DRY, Laravel + React/TypeScript best practices |
+| **performance-auditor** | Query optimization, Redis caching, index audit, SVG rendering, bundle size |
+
+### Container Commands (all agents use these)
+```bash
+docker compose exec -T backend php artisan migrate        # Migrations
+docker compose exec -T backend ./vendor/bin/pest          # Tests
+docker compose exec -T backend ./vendor/bin/pint          # Code style
+docker compose exec -T backend php artisan tinker         # REPL
+```
 
 ---
 
@@ -335,12 +340,180 @@ Frontend phases (6–11) are independent of backend after Phase 5.
 
 ---
 
-## Agent Adaptation Notes
+# v1.1 — Learning Experience Enhancements
 
-The available agents were built for the **Immotege** fintech platform. When invoking them for FFIS:
+Phases 13–16 address core pedagogical gaps identified after v1.0 release: the library lacks learning progression, there's no foundational primer for newcomers, terminology is assumed but never defined, and the `counters` data exists but is invisible to learners.
 
-1. **Ignore Immotege-specific context** — no Europace, no German fintech, no 186+ models, no Spatie Permission, no `ep_` prefix
-2. **Ignore container-first mandate** — FFIS uses `docker compose exec backend` not `docker compose exec php`
-3. **Keep general Laravel expertise** — migrations, Eloquent, Pest, Sanctum, SOLID, PSR-12, security patterns
-4. **Adapt testing rules** — FFIS can use `RefreshDatabase` safely (fresh project with proper migrations)
-5. **Skip Livewire/Filament/PowerGrid** — FFIS frontend is React SPA
+## Release & PR Process
+
+Each phase is developed on a feature branch, submitted as a PR, reviewed, and merged to `main`. After merge, a SemVer tag is created. The version ladder continues from `v1.0.0`:
+
+| Phase | Branch | Version | Scope |
+|-------|--------|---------|-------|
+| 13 | `feature/phase-13-difficulty-sort` | `v1.1.0` | Library sorting (new feature) |
+| 14 | `feature/phase-14-primer` | `v1.2.0` | Football 101 primer (new feature) |
+| 15 | `feature/phase-15-glossary` | `v1.3.0` | Terminology glossary (new feature) |
+| 16 | `feature/phase-16-counter-viz` | `v1.4.0` | Counter visualization (new feature) |
+
+**SemVer rules:**
+- **PATCH** (`x.x.1`) — bug fixes, typo corrections, minor tweaks within a phase
+- **MINOR** (`x.1.0`) — each completed phase (new feature, backward compatible)
+- **MAJOR** (`2.0.0`) — breaking API or data model changes (not expected in v1.x)
+
+**PR workflow per phase:**
+1. Create feature branch from `main`
+2. Implement all tasks (backend agents + main assistant frontend work)
+3. Run tests: `docker compose exec -T backend ./vendor/bin/pest`
+4. Run Pint: `docker compose exec -T backend ./vendor/bin/pint`
+5. Create PR targeting `main` with phase summary
+6. Review (code-reviewer agent or manual)
+7. Merge PR
+8. Tag release: `git tag vX.Y.Z && git push origin vX.Y.Z`
+9. Create GitHub release from tag
+
+---
+
+## Phase 13 — Difficulty-Based Library Sorting & Grouping
+
+**Goal:** Organize the concept library as a learning path — beginner → intermediate → advanced — instead of a flat alphabetical list.
+
+### Backend
+- [ ] Change `ConceptController@index` ordering from `orderBy('label')` to `orderByRaw` with difficulty weight: beginner=1, intermediate=2, advanced=3
+- [ ] Add secondary sort by category, then label within each difficulty tier
+- [ ] Add optional `?sort=difficulty` and `?sort=alpha` query param so the API supports both (default: difficulty)
+
+### Frontend
+- [ ] Add difficulty section headers in the library grid (Beginner, Intermediate, Advanced)
+- [ ] Show concept count per section
+- [ ] Add sort toggle (difficulty / alphabetical) to the filter bar
+- [ ] Persist sort preference in user store
+
+### Agent assignments
+- **Main assistant** — Frontend grouping UI, sort toggle
+- **`database-architect`** — Backend sort query optimization
+- **`test-engineer`** — Test sort ordering in API response, test both sort modes
+
+### Delivery
+- Branch: `feature/phase-13-difficulty-sort`
+- PR → merge to `main` → tag `v1.1.0` → GitHub release
+
+---
+
+## Phase 14 — Football 101 Primer
+
+**Goal:** A dedicated primer page that teaches the absolute basics before a user touches any concept. One SVG, all 22 players, token legend, field anatomy.
+
+### Content sections
+1. **The Field** — SVG showing full field with labeled zones: end zones, red zone, yard lines, hash marks, sidelines, line of scrimmage
+2. **The Teams** — All 22 players in a standard I-Formation vs 4-3 defense, every token labeled with role name and shape/color key
+3. **Token Legend** — Visual reference card: role → shape → color (the same mapping used everywhere in the app)
+4. **Basic Flow** — Downs system, possession, scoring (text + simple diagrams)
+5. **How to Use This App** — Brief guide: "pick a concept, watch the phases, read the explanation, ask the AI"
+
+### Implementation
+- [ ] New route: `/primer`
+- [ ] `PrimerPage` component with scrollable sections
+- [ ] Full-field SVG with all 22 players and annotations
+- [ ] Token legend component (reusable — also useful in lesson sidebar)
+- [ ] Navigation link in header and as CTA on home page for new users
+- [ ] No backend changes — all static content in the frontend
+
+### Agent assignments
+- **Main assistant** — All frontend work (React components, SVG, content)
+
+### Delivery
+- Branch: `feature/phase-14-primer`
+- PR → merge to `main` → tag `v1.2.0` → GitHub release
+
+---
+
+## Phase 15 — Terminology Glossary
+
+**Goal:** Searchable glossary of football terminology used throughout the app. Terms are defined once and can later power tooltips.
+
+### Backend
+- [ ] New `glossary_terms` table: `id`, `term` (unique), `definition`, `category` (offense/defense/general/scheme), `related_terms` (JSON array of term strings), `related_concepts` (JSON array of concept slugs), `created_at`, `updated_at`
+- [ ] `GlossaryTerm` model with casts and relationships
+- [ ] `GlossaryTermSeeder` — seed 40–60 terms covering: positions, formations, coverages, routes, blitz concepts, spatial terms, down-and-distance, general football
+- [ ] `GlossaryController` — `index` (searchable, filterable by category), `show` by term slug
+- [ ] API routes: `GET /api/glossary`, `GET /api/glossary/{term}`
+
+### Frontend
+- [ ] New route: `/glossary`
+- [ ] `GlossaryPage` component with search bar and category filter
+- [ ] Terms displayed as expandable cards or accordion
+- [ ] Related concepts link to `/lesson/{slug}`
+- [ ] Related terms cross-link within glossary
+- [ ] Navigation link in header
+
+### Agent assignments
+- **`database-architect`** — Migration, model, indexes
+- **`test-engineer`** — API endpoint tests, search/filter tests
+- **Main assistant** — Seeder content, controller, frontend page
+
+### Delivery
+- Branch: `feature/phase-15-glossary`
+- PR → merge to `main` → tag `v1.3.0` → GitHub release
+
+---
+
+## Phase 16 — Counter Visualization in Lessons
+
+**Goal:** When viewing any concept, show why it works and what beats it. The `counters` array already exists on every concept — surface it in the UI with a visual, animated counter panel.
+
+### Design
+- In lesson mode, add a "What Beats This" section below the explanation panel
+- Shows the primary counter concept as a mini-field preview (half-size SVG)
+- Click to expand into a split-view with synced playback (reuse Compare mode's sync engine)
+- Counter concept's explanation excerpt shown alongside
+- If the current concept is a counter to something else, show "This Concept Counters" section too (reverse lookup)
+
+### Backend
+- [ ] New endpoint: `GET /api/concepts/{slug}/counters` — returns full concept data for all counter slugs
+- [ ] Add reverse-counter lookup: find concepts where `counters` JSON contains the current slug
+- [ ] Ensure counter slugs in seeder data are accurate and bidirectional where appropriate
+
+### Frontend
+- [ ] `CounterPanel` component — collapsible section in LessonPage
+- [ ] Mini field preview (reuse `AnimatedField` at reduced scale)
+- [ ] "Expand" button to enter split-view with synced playback
+- [ ] `CounteredByPanel` — reverse lookup showing "This concept counters: X, Y"
+- [ ] Load counter concept data lazily (fetch on expand)
+- [ ] Visual indicator on concept cards in library showing counter count
+
+### Agent assignments
+- **Main assistant** — Frontend counter panel, split-view, lazy loading
+- **`database-architect`** — Counter endpoint, reverse lookup query
+- **`test-engineer`** — Counter endpoint tests, reverse lookup accuracy
+- **`performance-auditor`** — Ensure counter queries don't cause N+1, review caching strategy
+
+### Delivery
+- Branch: `feature/phase-16-counter-viz`
+- PR → merge to `main` → tag `v1.4.0` → GitHub release
+
+---
+
+## Phase 13–16 Execution Order & Dependencies
+
+```
+Phase 13 (Library Sorting)     — standalone, quick win
+Phase 14 (Primer)              — standalone, no backend
+Phase 15 (Glossary)            — standalone, backend + frontend
+Phase 16 (Counter Viz)         — depends on existing concept data, heaviest feature
+
+Phases 13 + 14 can run in parallel.
+Phase 15 can run in parallel with 13/14.
+Phase 16 should run last (benefits from all other improvements being in place).
+```
+
+---
+
+## Agent Invocation Notes
+
+All agents are purpose-built for FFIS. Key conventions:
+
+1. **Container commands** — always `docker compose exec -T backend` (not `php`, not `exec php`)
+2. **RefreshDatabase is safe** — this project has complete migrations from scratch
+3. **No Livewire/Filament/Blade** — frontend is React 19 SPA, agents handle backend only
+4. **JSON columns are central** — concepts store roster, phases, counters, tags as JSON; agents know MariaDB JSON functions
+5. **Orchestration model** — main assistant handles all frontend work and orchestrates agent invocations; agents handle backend tasks in parallel where possible
